@@ -67,7 +67,7 @@ use \Curl\Curl;
         foreach($address as $line) {
             //For title
             if($i === 0) {
-                $tmp = explode(',', $line->textContent);
+                $tmp = explode(',', utf8_decode($line->textContent));
                 $formatedAddress['id'] = trim($tmp[0]);
                 $formatedAddress['name'] = trim($tmp[1]);
             } else {
