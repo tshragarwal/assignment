@@ -51,7 +51,7 @@ use \Curl\Curl;
         $companyList = [];
         $dom = new DOMDocument('1.0', 'UTF-8');
         libxml_use_internal_errors(true);
-        $dom->loadHTML($response);
+        $dom->loadHTML(mb_convert_encoding($response, 'HTML-ENTITIES', 'UTF-8'));
 
         $elements = $dom->getElementById('content')->getElementsByTagName('a');
         foreach($elements as $company) {
