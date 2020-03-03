@@ -49,7 +49,7 @@ use \Curl\Curl;
 
     private function parseHTML($response) {
         $companyList = [];
-        $dom = new DOMDocument('11.0', 'UTF-8');
+        $dom = new DOMDocument('1.0', 'UTF-8');
         libxml_use_internal_errors(true);
         $dom->loadHTML($response);
 
@@ -72,7 +72,7 @@ use \Curl\Curl;
                 $formatedAddress['name'] = trim($tmp[1]);
             } else {
                 //For text
-                $tmp = explode(',', $line->textContent);
+                $tmp = explode(',', utf8_decode($line->textContent));
 
                 //For streetname sepration
                 $streetDetails = explode(' ', $tmp[0]);
@@ -102,8 +102,8 @@ use \Curl\Curl;
     private function getCityDetails($city) {
         $cityDetails = explode('-', $city);
         return [
-            'city' => utf8_decode(trim($cityDetails[0])),
-            'district' => isset($cityDetails[1]) ? utf8_decode(trim($cityDetails[1])) : ''
+            'city' => trim($cityDetails[0]),
+            'district' => isset($cityDetails[1]) ? trim($cityDetails[1]) : ''
         ];
     }
 
@@ -111,12 +111,12 @@ use \Curl\Curl;
         preg_match_all('/\d+/', $country, $matches);
         if(count($matches[0]) > 0) {
             return [
-                'country' => utf8_decode(trim(substr($country, 0, strlen($country) - 5))),
+                'country' => trim(substr($country, 0, strlen($country) - 5)),
                 'postalCode' => $matches[0][0]
             ];
         } else {
             return [
-                'country' => utf8_decode(trim($country)),
+                'country' => trim($country),
                 'postalCode' => ''
             ];
         }
