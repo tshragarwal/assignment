@@ -18,7 +18,7 @@ function getCompanyList() {
         if($result['status'] === 'success') {
             header('HTTP/1.0 200 Success');
             header('Content-Type: application/json');
-            echo json_encode($result, true);
+            echo json_encode($result, JSON_UNESCAPED_UNICODE);
         } else {
             header('HTTP/1.0 801 Internal error');
             header('Content-Type: application/json');
