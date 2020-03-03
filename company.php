@@ -102,8 +102,8 @@ use \Curl\Curl;
     private function getCityDetails($city) {
         $cityDetails = explode('-', $city);
         return [
-            'city' => utf8_encode(trim($cityDetails[0])),
-            'district' => isset($cityDetails[1]) ? utf8_encode(trim($cityDetails[1])) : ''
+            'city' => utf8_decode(trim($cityDetails[0])),
+            'district' => isset($cityDetails[1]) ? utf8_decode(trim($cityDetails[1])) : ''
         ];
     }
 
@@ -111,12 +111,12 @@ use \Curl\Curl;
         preg_match_all('/\d+/', $country, $matches);
         if(count($matches[0]) > 0) {
             return [
-                'country' => utf8_encode(trim(substr($country, 0, strlen($country) - 5))),
+                'country' => utf8_decode(trim(substr($country, 0, strlen($country) - 5))),
                 'postalCode' => $matches[0][0]
             ];
         } else {
             return [
-                'country' => utf8_encode(trim($country)),
+                'country' => utf8_decode(trim($country)),
                 'postalCode' => ''
             ];
         }
